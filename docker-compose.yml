@@ -1,0 +1,122 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    command:
+      - '--docker_only=true'
+      - '--housekeeping_interval=30s'
+      - '--disable_metrics=disk,diskIO'
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./monitoring/otel/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "8889:8889"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - food_prediction_service
+    restart: unless-stopped
+
+  food_prediction_service:
+    build:
+      context: ./food_prediction_service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    volumes:
+      - sqlite-data:/app/sqlite_database
+    restart: unless-stopped
+
+  firebase_listener:
+    build:
+      context: ./food_prediction_service
+      dockerfile: Dockerfile
+    command: python listener.py
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - FIREBASE_KEY_PATH=/app/firebase-key.json
+    restart: unless-stopped
+
+  calorie_prediction_service:
+    build:
+      context: .
+      dockerfile: ./calorie_prediction_service/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      food_prediction_service:
+        condition: service_started
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - FOOD_API_URL=http://food_prediction_service:8000
+      - BITNET_DIR=/bitnet
+      - MODEL_PATH=/bitnet/models/BitNet-b1.58-2B-4T/ggml-model-i2_s.gguf
+    restart: unless-stopped
+
+volumes:
+  grafana-data:
+  sqlite-data:
