@@ -1,0 +1,112 @@
+{
+  "title": "HTTP API Monitoring",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "5s",
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "query": "prometheus"
+      },
+      {
+        "name": "handler",
+        "type": "query",
+        "datasource": "$datasource",
+        "query": "label_values(http_server_requests_total, handler)"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Request Rate (RPS)",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "sum(rate(http_server_requests_total{handler=\"$handler\"}[1m]))",
+          "legendFormat": "RPS"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 6 }
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP Status Codes",
+      "datasource": "$datasource",
+      "targets": [
+        { "expr": "sum(rate(http_server_requests_total{status_code=~\"2..\"}[1m]))", "legendFormat": "2xx" },
+        { "expr": "sum(rate(http_server_requests_total{status_code=~\"4..\"}[1m]))", "legendFormat": "4xx" },
+        { "expr": "sum(rate(http_server_requests_total{status_code=~\"5..\"}[1m]))", "legendFormat": "5xx" }
+      ],
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 6 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Latency Percentiles (ms)",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum(rate(http_server_duration_milliseconds_bucket[5m])) by (le))",
+          "legendFormat": "p50"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_server_duration_milliseconds_bucket[5m])) by (le))",
+          "legendFormat": "p95"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(http_server_duration_milliseconds_bucket[5m])) by (le))",
+          "legendFormat": "p99"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 6, "w": 12, "h": 6 }
+    },
+    {
+      "type": "gauge",
+      "title": "Active Requests",
+      "datasource": "$datasource",
+      "targets": [
+        { "expr": "sum(http_server_active_requests)" }
+      ],
+      "gridPos": { "x": 12, "y": 6, "w": 12, "h": 6 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Avg Request Size (Bytes)",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "rate(http_server_request_size_bytes_sum[5m]) / rate(http_server_request_size_bytes_count[5m])",
+          "legendFormat": "Request Size"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 6 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Avg Response Size (Bytes)",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "rate(http_server_response_size_bytes_sum[5m]) / rate(http_server_response_size_bytes_count[5m])",
+          "legendFormat": "Response Size"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 12, "w": 12, "h": 6 }
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP Client Latency (ms)",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_client_duration_milliseconds_bucket[5m])) by (le))",
+          "legendFormat": "Client p95"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 18, "w": 24, "h": 6 }
+    }
+  ]
+}

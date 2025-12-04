@@ -1,0 +1,38 @@
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+
+# Virtual environments & env files
+venv/
+.env
+.env.*
+
+# Logs & temporary files
+*.log
+*.tmp
+
+# IDE / Editor settings
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# ML / Training Artifacts
+runs/
+models/
+checkpoints/
+weights/
+
+# Databases
+*.sqlite
+*.db
+
+# Build & Distribution
+build/
+dist/
+*.egg-info/
+
+# Docker
+*.tar

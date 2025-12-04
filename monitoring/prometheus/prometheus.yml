@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  # cAdvisor
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  # OpenTelemetry Collector (Prometheus exporter)
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8889']
