@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "coursework-jason-immanuel1-1",
+  "private_key_id": "5c8cb6f01eb03a3e680d11b1feda69e00d895aeb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClx/MD+6ABy60v\nSEAZETg0UzfvXpZb1MY3qckf6qPclamnkDIyxwNbiKV9V4HycYCghZbi510ZVUSz\ngWFwpdVAsPjdCL7+1KygoBp27WvzUZsjgc7C7bFwRBfxvwSOFCElvDxH8pGGmQNC\nobP8SSoX4y3IBW8F/vRq2hfte5H+RAM6kzCey7ld+yGIbPRP/oz4deaY7Q+95KZV\nEtCjnWBhz0RBXeC/lPzzTAK4mTzuzfP0dPO0wM7vwuLLX7xWWLWoByw/O+wk4qM3\nFo8jE00sBYzX1OeNRSsFBtAkmiRF835FcpPqK0u1OiBRfg4+gWoKx2jY51h4Byze\ndcv/Wi99AgMBAAECggEAA9/71FH0Gdg+XM6dRiJSwQq/hRr3b3LDTFQULtvZU/b0\nL3kgtz+gGp2QmRcSL9rLBSJPCWnOt9O4QDlFgz0yq7YUDXfE6rUJZCEoS5nXYVyJ\ns6EddloMdCf45rSbWsydJruy4M9w0XRvpB9rLKBmku1DadUfFN6L+eU0B6zEMZN9\nqa8b98ixI274PrdNp07ZMbPMYrmfDFOm9lBxw5NldU8gyQ7PHzHjDrOrWkef5iXw\nhkloh4AbZQE9XCgl8sZ7AEpbtHoeHtl+31iYMdkwovr0kFvFFj2BsjMa5jyc6wZP\ngPS6U94rN6iaUISHE4dkvvG9HjWdLofwF1gXdglq6QKBgQDTrsyiKCuMmQYYBNJ2\ncvaCWM0LL8pcNVoBM+/8QCebzMzaU9RaypGDSmp5B4h+XtFIqeRxxav3fZL9ntc+\nQCy+g55/nBBE6YUatObvkTk0ODGxBcPHNar1uFLsXD0QrCwdy4AAlxPUy6WkoajT\nJicuBkVXv4s71Sd/l7C41K+wCQKBgQDIfQg3h5YnBCjwdydJE8VJKL92OZ1FL4A+\naFGmxS5AmX2QaMEeV9iGhXSxanHvfafx2j9JEgt5t0BWUEUgVnURG+A9ZcrmjNMO\nMBHWBsDwuUVMqjH5ZMOWxS+1MyiM7joqZObwPjX5caCnYoRa4UI3Je0JfthoUQhd\nznByAoT41QKBgHbQiVmHNJJxHcODiWIkuwqEr2pVA79nzsIYFd6/X7wKYv00yl+/\njZdkwIh4WvubWtrvSSM28YQzvrqOWoA9Yx/4HpG/1j3n2OcZnPngyHvwAqw68R2y\nmOfc8uZqC3h9OzHqFEnAgsgRGkNi3bDOnHUv3eIXyB3oUYhDa1UDRC2JAoGAMYsM\nM8SyqzOQ9lNLhvh2wSxrm8iC/6zMUR+wRbjmRBpp9/ya9Gea3ystegYm35q6nL5k\n8yadZVeOc4Xkfyg+R5sO370+1ZgpM5FXZv9GQHZYFKjeLpXi62gQ8QMSWzkncIB8\nvRNyfRDCNXrX4ClYFo6ts7H/wk979Mpl6RaMS30CgYEAj/C8vNfrGDGc1aCviTuc\nmMMqwHbHifyCOeH5bkDynb2ADeOgqYuHpHuNcC/Yp76wpLA7Yfw568Z5wN7a2pDK\nDDaA0y+Dr+wKWWSve0lpSkiJPfWO9Q+pVWzi0z2jAjyvcL4d+aUSpbhRVuh/cG9r\nCIHRyL5a9tQ9wx1FM4wWEEE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@coursework-jason-immanuel1-1.iam.gserviceaccount.com",
+  "client_id": "116583382131672935084",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40coursework-jason-immanuel1-1.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
