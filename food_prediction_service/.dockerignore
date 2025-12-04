@@ -1,0 +1,36 @@
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment & Secrets
+.env
+.env.*
+*.secrets
+
+# Git & Version Control
+.git
+.gitignore
+
+# Local Builds & Artifacts
+runs/
+models/
+checkpoints/
+logs/
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Test & Dev Files
+tests/
+pytest_cache/
+.coverage
+htmlcov/
+
+# Docker Meta
+Dockerfile
+docker-compose.yml
