@@ -1,5 +1,3 @@
-# food_prediction_service/app/worker.py
-
 import pika
 import json
 import os

@@ -66,5 +66,3 @@ def verify_firebase_token(authorization: Optional[str] = Header(None)) -> dict:
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not verify token",
         )
-
-

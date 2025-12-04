@@ -4,8 +4,8 @@ __pycache__/
 
 # Virtual environments & env files
 venv/
-.env
-.env.*
+#.env
+#.env.*
 
 # Logs & temporary files
 *.log
