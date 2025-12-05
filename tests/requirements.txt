@@ -19,3 +19,7 @@ opentelemetry-instrumentation-requests==0.60b0
 slowapi==0.1.9
 python-dotenv==1.2.1
 pydantic==2.12.5
+pytest==7.2.1
+pytest-asyncio==0.21.0
+pytest-cov==4.1.0
+httpx==0.25.0
