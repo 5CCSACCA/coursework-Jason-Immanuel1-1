@@ -28,6 +28,6 @@ fi
 
 # Run pytest
 echo "Running all unit tests"
-pytest -v
+python -m pytest -v
 
 echo "Tests completed"
