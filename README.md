@@ -1,0 +1,126 @@
+# Food Prediction Service (SaaS)
+
+**Coursework for 5CCSACCA – Cloud Computing for Artificial Intelligence**  
+**Author:** Jason Immanuel
+
+This project is a SaaS application that provides a food image prediction service using machine learning. It includes:
+
+- A live API for image-based food prediction
+- Unit and live API tests
+- Containerization using Docker and Docker Compose for easy deployment
+- Integration with Firebase for authentication
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Setup Instructions](#setup-instructions)
+- [Running Tests](#running-tests)
+- [Running Live API Tests](#running-live-api-tests)
+- [Notes and Known Issues](#notes-and-known-issues)
+
+## Prerequisites
+
+Ensure your Linux machine has the following installed:
+
+- **Docker & Docker Compose** ([Installation guide](https://docs.docker.com/get-docker/))
+- **Python 3.11**
+- Internet access to download Python dependencies
+
+## Project Structure
+
+```
+coursework-Jason-Immanuel1-1/
+├── food_prediction_service/       # Main SaaS service code
+│   ├── app/
+│   │   ├── authentication.py      # Firebase authentication
+│   │   ├── model.py               # YOLO/ML model
+│   │   └── firebase_database/     # Firebase database client & key
+├── tests/                         # Unit and live API tests
+│   └── requirements.txt           # Python dependencies for testing
+├── run_tests.sh                   # Script to run all tests automatically
+├── docker-compose.yml             # Docker Compose configuration
+└── README.md                      # This README
+```
+
+## Setup Instructions (Linux)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/5CCSACCA/coursework-Jason-Immanuel1-1
+cd coursework-Jason-Immanuel1-1
+```
+
+### 2. Build and start the SaaS project using Docker Compose
+
+```bash
+docker compose build
+docker compose up
+```
+
+This builds all Docker images and starts the project services.
+
+## Running Tests
+
+### 1. Install Python virtual environment support
+
+```bash
+sudo apt install python3.11-venv
+```
+
+### 2. Create and activate a virtual environment
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install --upgrade pip
+pip install -r tests/requirements.txt
+```
+
+### 4. Run all unit tests
+
+```bash
+./run_tests.sh
+```
+
+The script automatically activates the virtual environment, installs dependencies, and runs pytest.
+
+## Running Live API Tests
+
+### 1. Make sure the SaaS project is running via Docker Compose
+
+```bash
+docker compose up
+```
+
+### 2. Navigate to the tests folder
+
+```bash
+cd tests
+```
+
+### 3. Run the live API tests
+
+```bash
+python3 live_api_test.py
+```
+
+This tests the live endpoints of the SaaS, including authentication and model predictions.
+
+## Notes and Known Issues
+
+- **Firebase Credentials:** Ensure `food_prediction_service/app/firebase_database/firebase_key.json` exists and contains valid credentials for tests requiring Firebase authentication.
+
+- **Linux VM Restrictions:** If `pip` fails to install packages system-wide, always use a virtual environment (`venv`) to avoid permission issues.
+
+- **Docker Requirements:** Docker must be running before starting the SaaS with `docker compose up`.
+
+- **Cross-Platform:** This guide is tailored for Linux. Windows users may need PowerShell-specific adjustments.
+
+- **SaaS Context:** The service is designed to be deployable as a cloud-hosted SaaS application.
