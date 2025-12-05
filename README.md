@@ -64,32 +64,18 @@ This builds all Docker images and starts the project services.
 ## Running Tests
 
 ### 1. Install Python virtual environment support
-
 ```bash
 sudo apt install python3.11-venv
 ```
 
-### 2. Create and activate a virtual environment
-
+### 2. Make the test script executable and run it
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-### 3. Install dependencies
-
-```bash
-pip install --upgrade pip
-pip install -r tests/requirements.txt
-```
-
-### 4. Run all unit tests
-
-```bash
+chmod +x run_tests.sh
 ./run_tests.sh
 ```
 
-The script automatically activates the virtual environment, installs dependencies, and runs pytest.
+The script will automatically create the virtual environment and install all dependencies from `tests/requirements.txt` before running the tests.
+
 
 ## Running Live API Tests
 
