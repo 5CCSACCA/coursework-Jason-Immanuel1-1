@@ -124,7 +124,3 @@ This tests the live endpoints of the SaaS, including authentication and model pr
 - **Cross-Platform:** This guide is tailored for Linux. Windows users may need PowerShell-specific adjustments.
 
 - **SaaS Context:** The service is designed to be deployable as a cloud-hosted SaaS application.
-
----
-
-This README ensures markers or collaborators can set up, test, and run your SaaS project on a fresh Linux machine or VM with minimal effort.
