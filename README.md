@@ -64,6 +64,23 @@ This builds all Docker images and starts the project services.
 
 ## API Endpoints
 
+## GET /interactions
+Retrieves all API interactions for the authenticated user.
+
+**Example Output:**
+```json
+{
+  "interactions": [
+    {
+      "id": 1,
+      "endpoint": "/predict",
+      "method": "POST",
+      "timestamp": "2025-12-07T20:06:32.349183"
+    }
+  ]
+}
+```
+
 ### POST /predict
 Submits an image for food prediction.
 
