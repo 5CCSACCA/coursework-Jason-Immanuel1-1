@@ -19,15 +19,28 @@ pip install --upgrade pip
 
 # Install dependencies from requirements.txt
 if [ -f "tests/requirements.txt" ]; then
-    echo "Installing project dependencies"
+    echo "Installing project dependencies..."
     pip install -r tests/requirements.txt
 else
     echo "Error: tests/requirements.txt not found."
     exit 1
 fi
 
-# Run pytest
-echo "Running all unit tests"
+# Run pytest for unit tests
+echo "Running all unit tests..."
 python -m pytest -v
+echo "Unit tests completed."
 
-echo "Tests completed"
+# Run the live API test script
+LIVE_API_SCRIPT="tests/live_api_test.py"
+if [ -f "$LIVE_API_SCRIPT" ]; then
+    echo "Running live API tests..."
+    python "$LIVE_API_SCRIPT"
+    echo "Live API tests completed."
+else
+    echo "Error: $LIVE_API_SCRIPT not found."
+    exit 1
+fi
+
+echo "All tests finished successfully."
+
