@@ -95,7 +95,7 @@ Retrieves all predictions for the authenticated user.
       "confidence": 0.9709324836730957,
       "prediction": "hamburger",
       "calories": 450,
-      "filename": "crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg",
+      "filename": "burger.jpg",
       "id": "79lpgP7crRf4BGBRuH2h"
     }
   ]
