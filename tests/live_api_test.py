@@ -67,6 +67,18 @@ class LiveAPITestClient:
         logger.info("Fetched predictions")
         return response.json()
 
+    def list_interactions(self):
+        """Fetch all API interactions for logged-in user."""
+        url = f"{self.api_base_url}/interactions"
+        headers = {"Authorization": f"Bearer {self.token}"}
+
+        response = requests.get(url, headers=headers, verify=False)
+        response.raise_for_status()
+
+        logger.info("Fetched API interactions")
+        return response.json()
+        return response.json()
+
     def update_prediction(self, doc_id: str, new_data: dict):
         """Update an existing prediction."""
         url = f"{self.api_base_url}/predictions/{doc_id}"
@@ -94,20 +106,25 @@ if __name__ == "__main__":
 
     # LOGIN
     client.login()
-    time.sleep(1)  # wait 1 second
+    time.sleep(5)
 
     # PREDICT
     image_path = "test_images/pizza.jpg"
     predict_response = client.predict(image_path)
     logger.info(f"Predict response: {predict_response}")
-    time.sleep(1)
+    time.sleep(5)
 
     doc_id = predict_response["results"][0]["id"]
 
     # GET USER PREDICTIONS
     predictions = client.list_predictions()
     logger.info(f"User predictions: {predictions}")
-    time.sleep(1)
+    time.sleep(5)
+
+    # GET USER API INTERACTIONS
+    interactions = client.list_interactions()
+    logger.info(f"User interactions: {interactions}")
+    time.sleep(5)
 
     # UPDATE PREDICTION
     update_response = client.update_prediction(
@@ -115,7 +132,7 @@ if __name__ == "__main__":
         {"prediction": "Updated Food Name"}
     )
     logger.info(f"Update response: {update_response}")
-    time.sleep(10)
+    time.sleep(5)
 
     # DELETE PREDICTION
     delete_response = client.delete_prediction(doc_id)

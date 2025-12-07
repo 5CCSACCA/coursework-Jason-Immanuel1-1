@@ -6,7 +6,7 @@ from firebase_admin import credentials
 from typing import List
 
 from sqlite_database.db import init_db
-from sqlite_database.logger import log_upload, log_request
+from sqlite_database.logger import log_upload, log_request, fetch_interactions_for_user
 
 from authentication import verify_firebase_token
 from firebase_database.firebase_client import (
@@ -46,6 +46,26 @@ image_validator = APISecurity()
 food_predictor = ThermitrackModel()
 publisher = RabbitMQPublisher()
 init_db()
+
+
+@app.get("/interactions")
+@limiter.limit("5/minute")
+async def get_api_interactions(
+    request: Request,
+    authorization: str = Header(None)
+) -> dict:
+    """
+    Retrieve all logged API interactions for the authenticated user.
+
+    Returns:
+        dict: {"interactions": List[dict]}
+    """
+    user = verify_firebase_token(authorization)
+    uid = user["uid"]
+
+    interactions = fetch_interactions_for_user(uid)
+
+    return {"interactions": interactions}
 
 
 @app.post("/predict")

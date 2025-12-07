@@ -57,3 +57,39 @@ def log_request(user_id: str, endpoint: str, method: str) -> None:
     finally:
         conn.close()
 
+
+def fetch_interactions_for_user(user_id: str) -> list:
+    """
+    Retrieve all API request logs for a specific user.
+
+    Args:
+        user_id (str): Firebase auth user ID.
+
+    Returns:
+        List[dict]: All interactions for that user.
+    """
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+                       SELECT id, endpoint, method, timestamp
+                       FROM api_requests
+                       WHERE user_id = ?
+                       ORDER BY timestamp DESC
+                       """, (user_id,))
+
+        rows = cursor.fetchall()
+
+        return [
+            {
+                "id": row[0],
+                "endpoint": row[1],
+                "method": row[2],
+                "timestamp": row[3],
+            }
+            for row in rows
+        ]
+    finally:
+        conn.close()
+
+
