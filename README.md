@@ -15,6 +15,7 @@ This project is a SaaS application that provides a food image prediction service
 - [Prerequisites](#prerequisites)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
+- [API Endpoints](#api-endpoints)
 - [Running Tests](#running-tests)
 - [Running Live API Tests](#running-live-api-tests)
 - [Notes and Known Issues](#notes-and-known-issues)
@@ -60,6 +61,66 @@ docker compose up
 ```
 
 This builds all Docker images and starts the project services.
+
+## API Endpoints
+
+### POST /predict
+Submits an image for food prediction.
+
+**Example Output:**
+```json
+{
+  "results": [
+    {
+      "id": "eQqJdL4nuH8XBrcDfIzA",
+      "prediction": {
+        "Food": "pizza",
+        "Confidence Score": 0.9999982118606567
+      },
+      "filename": "pizza.jpg"
+    }
+  ]
+}
+```
+
+### GET /predictions
+Retrieves all predictions for the authenticated user.
+
+**Example Output:**
+```json
+{
+  "predictions": [
+    {
+      "userId": "IgMEVA88fPdSnIfiyvkNUfCCcDM2",
+      "confidence": 0.9709324836730957,
+      "prediction": "hamburger",
+      "calories": 450,
+      "filename": "crispy-comte-cheesburgers-FT-RECIPE0921-6166c6552b7148e8a8561f7765ddf20b.jpg",
+      "id": "79lpgP7crRf4BGBRuH2h"
+    }
+  ]
+}
+```
+
+### PUT /predictions/{doc_id}
+Updates a specific prediction by document ID.
+
+**Example Output:**
+```json
+{
+  "status": "updated"
+}
+```
+
+### DELETE /predictions/{doc_id}
+Deletes a specific prediction by document ID.
+
+**Example Output:**
+```json
+{
+  "status": "deleted"
+}
+```
 
 ## Running Tests
 
