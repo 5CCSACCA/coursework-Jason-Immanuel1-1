@@ -109,7 +109,7 @@ if __name__ == "__main__":
     time.sleep(5)
 
     # PREDICT
-    image_path = "test_images/pizza.jpg"
+    image_path = "tests/test_images/pizza.jpg"
     predict_response = client.predict(image_path)
     logger.info(f"Predict response: {predict_response}")
     time.sleep(5)
