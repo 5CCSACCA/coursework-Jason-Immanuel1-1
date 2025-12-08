@@ -46,21 +46,96 @@ coursework-Jason-Immanuel1-1/
 
 ## Setup Instructions (Linux)
 
-### 1. Clone the repository
+## Installation
 
+### 1. Update your system
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+### 2. Install Git
+```bash
+sudo apt install git -y
+git --version
+```
+
+### 3. Install Docker (official Docker version)
+
+Remove any old Docker first:
+```bash
+sudo apt remove docker docker.io docker-ce docker-ce-cli containerd runc -y
+```
+
+Install Docker using the official convenience script:
+```bash
+curl -fsSL https://get.docker.com | sh
+```
+
+Start Docker and enable it on boot:
+```bash
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+Add your user to the docker group so you don't need sudo:
+```bash
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+> **Note:** You may need to log out and log back in for the group changes to take effect.
+
+Check Docker:
+```bash
+docker --version
+docker run hello-world
+```
+
+> **Security Note:** Adding your user to the docker group grants privileges equivalent to root access. For enhanced security in production environments, consider using [Docker rootless mode](https://docs.docker.com/go/rootless/).
+
+### 4. Install Docker Compose (modern integrated CLI)
+
+With the official Docker install, you can now use the new CLI:
+```bash
+docker compose version
+```
+
+If it's missing, install the plugin manually:
+```bash
+sudo apt install docker-compose-plugin -y
+docker compose version
+```
+
+### 5. Clone the repository
 ```bash
 git clone https://github.com/5CCSACCA/coursework-Jason-Immanuel1-1
 cd coursework-Jason-Immanuel1-1
 ```
 
-### 2. Build and start the SaaS project using Docker Compose
+## Usage
 
+### Build and start the SaaS project using Docker Compose
 ```bash
 docker compose build
 docker compose up
 ```
 
-This builds all Docker images and starts the project services.
+To run in detached mode:
+```bash
+docker compose up -d
+```
+
+To stop the services:
+```bash
+docker compose down
+```
+> **Troubleshooting:** 
+> - If you encounter permission errors with Docker commands, you may need to use `sudo` before each command (e.g., `sudo docker compose up`) or log out and log back in for the docker group changes to take effect.
+> - If you hit Docker Hub rate limits, log in with your Docker Hub account:
+>   ```bash
+>   docker login
+>   ```
 
 ## API Endpoints
 
@@ -141,41 +216,30 @@ Deletes a specific prediction by document ID.
 
 ## Running Tests
 
-### 1. Install Python virtual environment support
+The project includes automated tests that can be run with a single command.
+
+### Prerequisites for Testing
+
+Install Python virtual environment support:
 ```bash
 sudo apt install python3.11-venv
 ```
 
-### 2. Make the test script executable and run it
+### Run All Tests
+
+Make the test script executable and run it:
 ```bash
 chmod +x run_tests.sh
 ./run_tests.sh
 ```
 
-The script will automatically create the virtual environment and install all dependencies from `tests/requirements.txt` before running the tests.
+The script will automatically:
+- Create a virtual environment
+- Install all dependencies from `tests/requirements.txt`
+- Run all tests including live API tests
 
+**Note:** Make sure the SaaS project is running via Docker Compose before running the tests.
 
-## Running Live API Tests
-
-### 1. Make sure the SaaS project is running via Docker Compose
-
-```bash
-docker compose up
-```
-
-### 2. Navigate to the tests folder
-
-```bash
-cd tests
-```
-
-### 3. Run the live API tests
-
-```bash
-python3 live_api_test.py
-```
-
-This tests the live endpoints of the SaaS, including authentication and model predictions.
 
 ## Notes and Known Issues
 
